@@ -1,0 +1,25 @@
+{
+  "name": "rosita",
+  "version": "0.1.0",
+  "description": "Convert EFD Contribuições to XML",
+  "main": "rosita.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/llp-devr/rosita.git"
+  },
+  "author": "Leonardo Lopes Pereira",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/llp-devr/rosita/issues"
+  },
+  "homepage": "https://github.com/llp-devr/rosita#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "sprintf-js": "^1.1.2",
+    "xmldom": "^0.6.0"
+  }
+}
