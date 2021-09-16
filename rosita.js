@@ -11,10 +11,10 @@ app.use(fileUpload())
 const port = 3000
 
 function SplitLine (line) {
-  return line.normalize("NFC").replace('&','&amp;').split("|");
+  return line.normalize("NFC").replace('&','&amp;').replace('<','&lt;').replace('>', '&gt;').replace('"', '&quot;').replace("'", "&apos;").split("|");
 };
 
-function EFDtoXML (data) {
+function EFDtoXML (md5, data) {
   var hierarquia = 0;
   var closeREG = {
     0: "",
@@ -25,7 +25,7 @@ function EFDtoXML (data) {
     5: "",
     6: "",
   };
-  var stringXML = "<efd-contribuições>";
+  var stringXML =vsprintf('<efd-contribuições md5="%s">', md5);
 
   function inner_closeREG ( nh ) {
     switch(nh) {
@@ -1486,14 +1486,15 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-app.post("/upload", (req, res) => {
+app.post("/efd-contribuicoes", (req, res) => {
   if (!req.files) {
     return res.status(400).send("No files were uploaded.");
   }
 
-  const fileData = req.files.myFile.data;
+  const fileData = req.files.sped.data;
+  const fileHash = req.files.sped.md5;
   console.log(fileData)
-  return res.send(EFDtoXML(fileData))
+  return res.send(EFDtoXML(fileHash, fileData))
 })
 
 app.listen(port, () => {
